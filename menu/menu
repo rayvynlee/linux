@@ -1,0 +1,11 @@
+#!/bin/bash
+clear
+
+echo -e ""
+echo -e " == Shadow046 == "
+echo -e ""
+echo -e " Commands:"
+echo -e "  accounts"
+echo -e "  options"
+echo -e "  server"
+echo -e ""
