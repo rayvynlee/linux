@@ -1,0 +1,6 @@
+set_var EASYRSA_REQ_COUNTRY    "US"
+set_var EASYRSA_REQ_PROVINCE   "California"
+set_var EASYRSA_REQ_CITY       "San Francisco"
+set_var EASYRSA_REQ_ORG        "shadow"
+set_var EASYRSA_REQ_EMAIL      "jerome@iamshadow.tech"
+set_var EASYRSA_REQ_OU         "shadow046"
