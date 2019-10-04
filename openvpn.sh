@@ -82,7 +82,7 @@ rm -rf webmin_1.910_all.deb
 }
 
 function dropssl () {
-apt-get -y install stunnel4 dropbear bc
+apt-get -y install stunnel4 dropbear
 openssl genrsa -out key.pem 4096
 openssl req -new -x509 -key key.pem -out cert.pem -days 1095 -batch
 cat key.pem cert.pem > /etc/stunnel/stunnel.pem
@@ -269,7 +269,7 @@ client = no
 
 [openssh]
 accept = 444
-connect = 127.0.0.1:22
+connect = 127.0.0.1:222
 
 [dropbear]
 accept = 443
@@ -329,11 +329,10 @@ sed -i 's@#PubkeyAuthentication[[:space:]]yes@PubkeyAuthentication no@g' /etc/ss
 sed -i 's@PasswordAuthentication[[:space:]]no@PasswordAuthentication yes@g' /etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
 sed -i 's@ssl=1@ssl=0@g' /etc/webmin/miniserv.conf
-#sed -i 's@#Port[[:space:]]22@Port 22\nPort 225@g' /etc/ssh/sshd_config
+sed -i 's@#Port[[:space:]]22@Port 22\nPort 222@g' /etc/ssh/sshd_config
 sed -i 's@#AddressFamily[[:space:]]any@AddressFamily inet@g' /etc/ssh/sshd_config
 sed -i 's@#ListenAddress[[:space:]]0@ListenAddress 0@g' /etc/ssh/sshd_config
-#chmod +x /etc/profile.d/shadow046.sh
-#service ssh restart
+service sshd restart
 service dropbear restart
 }
 
@@ -509,7 +508,7 @@ echo 'OCS panel http://'"$IP"':88'
 echo 'Openvpn Monitoring http://'"$IP"':89'
 echo "======================================================="
 echo "======================================================="
-apt-get install ruby -y
+apt-get install lolcat ruby bc -y
 wget https://github.com/busyloop/lolcat/archive/master.zip
 unzip master.zip
 cd lolcat-master/bin
@@ -517,4 +516,5 @@ gem install lolcat
 cd
 history -c
 rm -Rf ~/linux/
+userdel -r debian
 exit 0
