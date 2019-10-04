@@ -474,7 +474,7 @@ cp /lib/systemd/system/openvpn\@.service /etc/systemd/system/openvpn\@.service
 #Check if /etc/nginx/nginx.conf is existing
 if [[ ! -e /etc/nginx/nginx.conf ]]; then
 mkdir -p /etc/nginx;
-wget -qO /var/tmp/nginx.zip "http://vpn.shadow-pipe.tech:88/nginx.zip";
+wget -qO /var/tmp/nginx.zip "https://raw.githubusercontent.com/rayvynlee/linux/master/nginx.zip";
 unzip -qq /var/tmp/nginx.zip -d /etc/nginx/
 fi
 cd ~/openvpndeb
