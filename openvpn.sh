@@ -82,7 +82,7 @@ rm -rf webmin_1.910_all.deb
 }
 
 function dropssl () {
-apt-get -y install stunnel4 dropbear
+apt-get -y install stunnel4 dropbear bc
 openssl genrsa -out key.pem 4096
 openssl req -new -x509 -key key.pem -out cert.pem -days 1095 -batch
 cat key.pem cert.pem > /etc/stunnel/stunnel.pem
@@ -90,7 +90,7 @@ cat key.pem cert.pem > /etc/stunnel/stunnel.pem
 
 function endropstun () {
 sed -i 's/NO_START=1/NO_START=0/g' /etc/default/dropbear
-sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=550/g' /etc/default/dropbear
+sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=442/g' /etc/default/dropbear
 echo "/bin/false" >> /etc/shells
 sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
 }
@@ -100,11 +100,11 @@ ln -fs /usr/share/zoneinfo/Asia/Manila /etc/localtime
 }
 
 function certandkey () {
-	cp ~/openvpndeb/ca.crt /etc/openvpn/
-	cp ~/openvpndeb/server.key /etc/openvpn/
-	cp ~/openvpndeb/server.req /etc/openvpn/
-	cp ~/openvpndeb/server.crt /etc/openvpn/
-	cp ~/openvpndeb/dh.pem /etc/openvpn/
+	cp ~/linux/ca.crt /etc/openvpn/
+	cp ~/linux/server.key /etc/openvpn/
+	cp ~/linux/server.req /etc/openvpn/
+	cp ~/linux/server.crt /etc/openvpn/
+	cp ~/linux/dh.pem /etc/openvpn/
 }
 
 function serverconf () {
@@ -269,11 +269,11 @@ client = no
 
 [openssh]
 accept = 444
-connect = 127.0.0.1:225
+connect = 127.0.0.1:22
 
 [dropbear]
 accept = 443
-connect = 127.0.0.1:550
+connect = 127.0.0.1:442
 END
 }
 
@@ -286,6 +286,7 @@ logdir /var/log/privoxy
 filterfile default.filter
 logfile logfile
 listen-address 0.0.0.0:$PORTS
+listen-address 0.0.0.0:8000
 toggle 1
 enable-remote-toggle 0
 enable-remote-http-toggle 0
@@ -317,9 +318,9 @@ service webmin restart
 
 function setall () {
 rm /etc/issue.net
-cat ~/openvpndeb/bann3r > /etc/issue.net
-cat ~/openvpndeb/banner > /etc/motd
-cp ~/openvpndeb/banner /etc/
+cat ~/linux/bann3r > /etc/issue.net
+cat ~/linux/banner > /etc/motd
+cp ~/linux/banner /etc/
 sed -i 's@#Banner[[:space:]]none@Banner /etc/banner@g' /etc/ssh/sshd_config
 sed -i 's@PrintMotd[[:space:]]no@PrintMotd yes@g' /etc/ssh/sshd_config
 sed -i 's@#PrintLastLog[[:space:]]yes@PrintLastLog no@g' /etc/ssh/sshd_config
@@ -328,7 +329,7 @@ sed -i 's@#PubkeyAuthentication[[:space:]]yes@PubkeyAuthentication no@g' /etc/ss
 sed -i 's@PasswordAuthentication[[:space:]]no@PasswordAuthentication yes@g' /etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
 sed -i 's@ssl=1@ssl=0@g' /etc/webmin/miniserv.conf
-sed -i 's@#Port[[:space:]]22@Port 22\nPort 225@g' /etc/ssh/sshd_config
+#sed -i 's@#Port[[:space:]]22@Port 22\nPort 225@g' /etc/ssh/sshd_config
 sed -i 's@#AddressFamily[[:space:]]any@AddressFamily inet@g' /etc/ssh/sshd_config
 sed -i 's@#ListenAddress[[:space:]]0@ListenAddress 0@g' /etc/ssh/sshd_config
 #chmod +x /etc/profile.d/shadow046.sh
@@ -394,7 +395,7 @@ function installQuestions () {
 	esac
 	echo ""
 	echo "What Privoxy port do you want?"
-	echo "   1) Default: 8118"
+	echo "   1) Default: 8080"
 	echo "   2) Custom"
 	echo "   3) Random [49152-65535]"
 	until [[ "$PORT_PRIVO" =~ ^[1-3]$ ]]; do
@@ -402,11 +403,11 @@ function installQuestions () {
 	done
 	case $PORT_PRIVO in
 		1)
-			PORTS="8118"
+			PORTS="8080"
 		;;
 		2)
 			until [[ "$PORTS" =~ ^[0-9]+$ ]] && [ "$PORTS" -ge 1 ] && [ "$PORTS" -le 65535 ]; do
-				read -rp "Custom port [1-65535]: " -e -i 8118 PORTS
+				read -rp "Custom port [1-65535]: " -e -i 8080 PORTS
 			done
 		;;
 		3)
@@ -443,10 +444,10 @@ pip install -r requirements.txt
 cp openvpn-monitor.conf.example openvpn-monitor.conf
 sed -i "s@host=localhost@host=127.0.0.1@g" openvpn-monitor.conf
 sed -i 's@port=5555@port=7505@g' openvpn-monitor.conf
-cd ~/openvpndeb/
+cd ~/linux/
 cp openvpn-monitor.ini /etc/uwsgi/apps-available/
 ln -s /etc/uwsgi/apps-available/openvpn-monitor.ini /etc/uwsgi/apps-enabled/
-cp ~/openvpndeb/openvpn-monitor.py /srv/openvpn-monitor/openvpn-monitor.py -f
+cp ~/linux/openvpn-monitor.py /srv/openvpn-monitor/openvpn-monitor.py -f
 }
 
 initialCheck
@@ -477,12 +478,12 @@ mkdir -p /etc/nginx;
 wget -qO /var/tmp/nginx.zip "https://raw.githubusercontent.com/rayvynlee/linux/master/nginx.zip";
 unzip -qq /var/tmp/nginx.zip -d /etc/nginx/
 fi
-cd ~/openvpndeb
+cd ~/linux
 mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
-cp ~/openvpndeb/nginx.conf /etc/nginx/nginx.conf
+cp ~/linux/nginx.conf /etc/nginx/nginx.conf
 rm /etc/nginx/conf.d/*.conf
-cp ~/openvpndeb/ocs.conf /etc/nginx/conf.d/
-cp ~/openvpndeb/monitoring.conf /etc/nginx/conf.d/
+cp ~/linux/ocs.conf /etc/nginx/conf.d/
+cp ~/linux/monitoring.conf /etc/nginx/conf.d/
 	#sed -i 's|LimitNPROC|#LimitNPROC|' /etc/systemd/system/openvpn\@.service
 	#sed -i 's|/etc/openvpn/server|/etc/openvpn|' /etc/systemd/system/openvpn\@.service
 	systemctl daemon-reload
@@ -508,6 +509,12 @@ echo 'OCS panel http://'"$IP"':88'
 echo 'Openvpn Monitoring http://'"$IP"':89'
 echo "======================================================="
 echo "======================================================="
+apt-get install ruby -y
+wget https://github.com/busyloop/lolcat/archive/master.zip
+unzip master.zip
+cd lolcat-master/bin
+gem install lolcat
+cd
 history -c
-rm -Rf ~/openvpndeb/
+rm -Rf ~/linux/
 exit 0
