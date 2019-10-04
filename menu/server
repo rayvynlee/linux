@@ -2,7 +2,7 @@
 
 clear
 echo -e ""
-echo -e " == Shadow046 == "
+echo -e " == PisoVPN == "
 echo -e ""
 echo -e "   [1] Change Server Password"
 echo -e "   [2] RAM Usage"
@@ -17,7 +17,7 @@ case $Server in
 		1)
 		clear
 		echo -e ""
-    echo -e " == Shadow046 == "
+    echo -e " == PisoVPN == "
     echo -e ""
 		echo -e " Checking root permissions..."
 		echo -e ""
