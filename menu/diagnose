@@ -92,7 +92,7 @@ echo "- Type service nginx restart on putty/juicessh" >> /var/tmp/solutions.txt
 fi
 
 echo -e ""
-echo -e " == BonvScript == " | lolcat -a
+echo -e " PisoVPN " | lolcat -a
 echo " "
 echo "-------------------------------------------"
 echo "Automatic VPS Diagnostics"
@@ -120,7 +120,7 @@ read -p "Select options (1-2): " x
 if test $x -eq 1; then
 if [[ -e /etc/debian_version ]]; then
 echo -e ""
-echo -e " == BonvScript == " | lolcat -a
+echo -e " PisoVPN " | lolcat -a
 service nginx start
 service php5-fpm start
 service vnstat restart

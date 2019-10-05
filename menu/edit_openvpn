@@ -34,7 +34,7 @@ END
 cd
 clear
 echo -e ""
-echo -e " == Shadow046 == "
+echo -e " PisoVPN "
 echo -e ""
 echo -e " OpenVPN Port: $openvpnport"
 echo -e ""
@@ -82,7 +82,7 @@ if [ $? -eq 0 ]; then
 	sleep 3
 	openvpnport="$(netstat -nlpt | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)"
 	clear
-	echo -e " == Shadow046 == "
+	echo -e " PisoVPN "
 	echo -e ""
   echo -e " Successfully Reconfigured"
   echo -e " your OpenVPN Port is now: $openvpnport"

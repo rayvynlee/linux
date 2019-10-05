@@ -3,7 +3,7 @@
 clear
 
 echo -e ""
-echo -e " == Shadow046 == "
+echo -e " PisoVPN "
 echo -e " Create Random Users"
 read -p "  No. of Users to be created: " No_User
 read -p "  Active Days of Users: " Days
@@ -21,7 +21,7 @@ openvpnport="$(netstat -nlpt | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $
 squidport="$(cat /etc/privoxy/config | grep -i listen-address | awk '{print $2}' | xargs | sed -e 's/ /, /g')"
 
 echo -e ""
-echo -e " == Shadow046 == "
+echo -e " PisoVPN "
 echo -e ""
 echo -e " Create Random Accounts"
 for (( i=1; i <= $No_User; i++ ))

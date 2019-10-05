@@ -5,7 +5,7 @@ if [ "$Username" = "" ]
 then
 	clear
 	echo -e ""
-  echo -e " == BonvScript == " | lolcat -a
+  echo -e " PisoVPN " | lolcat -a
   echo -e ""
 	echo -e " Username does not exist"
 	echo -e ""
@@ -24,7 +24,7 @@ AccountExpiryDate=`chage -l $Username | grep "Account expires" | awk -F": " '{pr
 HomeDirSize=`du -hs $UserHomeDir | awk '{print $1}'`
 clear
 echo -e ""
-echo -e " == BonvScript == " | lolcat -a
+echo -e " PisoVPN " | lolcat -a
 echo -e ""
 echo -e "  User Details: "
 echo -e " Username: $Username"

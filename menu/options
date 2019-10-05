@@ -2,7 +2,7 @@
 
 clear
 echo -e ""
-echo -e " == Shadow046 == "
+echo -e " PisoVPN "
 echo -e ""
 echo -e "   [1] MultiLogin"
 echo -e "   [2] Restart Services"

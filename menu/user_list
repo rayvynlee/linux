@@ -9,7 +9,7 @@ else
 fi
 clear
 echo -e ""
-echo -e " == Shadow046 == "
+echo -e " PisoVPN "
 echo -e "  Users list "
 echo -e " Username     Expiration"
 echo " "

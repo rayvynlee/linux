@@ -2,7 +2,7 @@
 
 clear
 echo -e ""
-echo -e " == Shadow046 == "
+echo -e " PisoVPN "
 echo -e ""
 echo -e "  [1] Show All Service Ports"
 echo -e "  [2] Edit OpenSSH Port"

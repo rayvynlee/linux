@@ -2,7 +2,7 @@
 
 clear
 echo -e ""
-echo -e " == BonvScript == " | lolcat -a
+echo -e " PisoVPN " | lolcat -a
 echo -e ""
 echo -e "   [1] Reboot Now"
 echo -e "   [2] Reboot Time"

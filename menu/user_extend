@@ -2,7 +2,7 @@
 
 clear
 echo -e ""
-echo -e " == BonvScript == " | lolcat -a
+echo -e " PisoVPN " | lolcat -a
 echo -e ""
 read -p " Username: " User
 egrep "^$User" /etc/passwd >/dev/null
@@ -19,7 +19,7 @@ egrep "^$User" /etc/passwd >/dev/null
 echo -e "$Pass\n$Pass\n"|passwd $User &> /dev/null
 clear
 echo -e ""
-echo -e " == BonvScript == " | lolcat -a
+echo -e " PisoVPN " | lolcat -a
 echo -e ""
 echo -e " Username: $User"
 echo -e " Extended Account Expiry: $Days Days"
@@ -28,7 +28,7 @@ echo -e ""
 else
 clear
 echo -e ""
-echo -e " == BonvScript == " | lolcat -a
+echo -e " PisoVPN " | lolcat -a
 echo -e ""
 echo -e " Username does not exists"
 echo -e ""

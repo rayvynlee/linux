@@ -34,7 +34,7 @@ END
 cd
 clear
 echo -e ""
-echo -e " == Shadow046 == "
+echo -e " PisoVPN "
 echo -e "  Dropbear Ports: "$dropbearport
 echo -e ""
 read -p "  Which Port Should Be Changed?: " Port
@@ -78,7 +78,7 @@ if [ $? -eq 0 ]; then
 	clear
 	
 	echo -e ""
-echo -e " == Shadow046 == "
+echo -e " PisoVPN "
   echo -e " Successfully reconfigured"
   echo -e " your Dropbear Port now is: $dropbearport"
 	echo -e ""

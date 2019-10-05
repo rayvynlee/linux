@@ -2,7 +2,7 @@
 
 clear
 echo -e ""
-echo -e " == BonvScript == " | lolcat -a
+echo -e " PisoVPN " | lolcat -a
 echo -e ""
 read -p " Username: " User
 egrep "^$User" /etc/passwd >/dev/null
@@ -12,7 +12,7 @@ if grep -Fxq "$User" /etc/Locked_List.txt
 then
   clear
 echo -e ""
-echo -e " == BonvScript == " | lolcat -a
+echo -e " PisoVPN " | lolcat -a
 echo -e ""
 echo -e " User Has Been Unlocked"
 echo -e " User Has Been Removed from Locked_List"
@@ -24,7 +24,7 @@ exit
 else
   clear
 echo -e ""
-echo -e " == BonvScript == " | lolcat -a
+echo -e " PisoVPN " | lolcat -a
 echo -e ""
 echo -e " User Is Not Locked"
 echo -e ""
@@ -35,7 +35,7 @@ fi
 else
 	clear
 	echo -e ""
-echo -e " == BonvScript == " | lolcat -a
+echo -e " PisoVPN " | lolcat -a
   echo -e ""
 	echo -e " Username Doesnt Exist"
 	echo -e ""

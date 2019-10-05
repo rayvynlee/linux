@@ -22,7 +22,7 @@ useradd -e `date -d "$Days days" +"%Y-%m-%d"` -s /bin/false -M $User &> /dev/nul
 echo -e "$Pass\n$Pass\n"|passwd $User &> /dev/null
 clear
 echo -e ""
-echo -e " == Shadow046 == "
+echo -e " PisoVPN "
 echo -e " Trial Account"
 echo -e "   IP Address: "$MYIP
 echo -e "   Username: $User"

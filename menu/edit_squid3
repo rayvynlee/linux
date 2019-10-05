@@ -34,7 +34,7 @@ END
 cd
 clear
 echo -e ""
-echo -e " == Shadow046 == "
+echo -e " PisoVPN "
 echo -e " Squid3 Ports: $squidport"
 echo -e ""
 read -p " Which port should be changed?: " Port
@@ -76,7 +76,7 @@ if [ $? -eq 0 ]; then
 	squidport="$(cat /etc/privoxy/config | grep -i listen-address | awk '{print $2}')"
 	clear
 	echo -e ""
-echo -e " == Shadow046 == "
+echo -e " PisoVPN "
   echo -e " Successfully Reconfigured"
 	echo -e " your Squid Port is now: $squidport"
 	echo -e ""

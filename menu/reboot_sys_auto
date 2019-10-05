@@ -2,7 +2,7 @@
 
 clear
 echo -e ""
-echo -e " == BonvScript == " | lolcat -a
+echo -e " PisoVPN " | lolcat -a
 echo -e ""
 echo -e "   [1] Reboot Every 1 Hour"
 echo -e "   [2] Reboot Every 2 Hours"
@@ -23,7 +23,7 @@ case $Reboot_Sys in
 		clear
 		echo "10 * * * * root /usr/local/bin/reboot_sys" > /etc/cron.d/reboot_sys
     echo -e ""
-    echo -e " == BonvScript == " | lolcat -a
+    echo -e " PisoVPN " | lolcat -a
     echo -e ""
     echo -e " Auto-Reboot Set Every Hour"
     echo -e ""
@@ -33,7 +33,7 @@ case $Reboot_Sys in
 		clear
 		echo "10 */6 * * * root /usr/local/bin/reboot_sys" > /etc/cron.d/reboot_sys
     echo -e ""
-    echo -e " == BonvScript == " | lolcat -a
+    echo -e " PisoVPN " | lolcat -a
     echo -e ""
 		echo -e " Auto-Reboot Set Every 2 Hours"
 		echo -e ""
@@ -43,7 +43,7 @@ case $Reboot_Sys in
 		clear
 		echo "10 */12 * * * root /usr/local/bin/reboot_sys" > /etc/cron.d/reboot_sys
 		echo -e ""
-    echo -e " == BonvScript == " | lolcat -a
+    echo -e " PisoVPN " | lolcat -a
     echo -e ""
 		echo -e " Auto-Reboot Set Every 12 Hours"
 		echo -e ""
@@ -53,7 +53,7 @@ case $Reboot_Sys in
 		clear
 		echo "10 0 * * * root /usr/local/bin/reboot_sys" > /etc/cron.d/reboot_sys
 		echo -e ""
-    echo -e " == BonvScript == " | lolcat -a
+    echo -e " PisoVPN " | lolcat -a
     echo -e ""
 		echo -e " Auto-Reboot Set Once A Day"
 		echo -e ""
@@ -63,7 +63,7 @@ case $Reboot_Sys in
 		clear
 		echo "10 0 */7 * * root /usr/local/bin/reboot_sys" > /etc/cron.d/reboot_sys
 		echo -e ""
-    echo -e " == BonvScript == " | lolcat -a
+    echo -e " PisoVPN " | lolcat -a
     echo -e ""
 		echo -e " Auto-Reboot Set Once A Week"
 		echo -e ""
@@ -73,7 +73,7 @@ case $Reboot_Sys in
 		clear
 		echo "10 0 1 * * root /usr/local/bin/reboot_sys" > /etc/cron.d/reboot_sys
 		echo -e ""
-    echo -e " == BonvScript == " | lolcat -a
+    echo -e " PisoVPN " | lolcat -a
     echo -e ""
 		echo -e " Auto-Reboot Set Once A Month"
 		echo -e ""
@@ -83,7 +83,7 @@ case $Reboot_Sys in
 		clear
 		rm -f /etc/cron.d/reboot_sys
 		echo -e ""
-    echo -e " == BonvScript == " | lolcat -a
+    echo -e " PisoVPN " | lolcat -a
     echo -e ""
 		echo -e " Auto-Reboot Removed"
 		echo -e ""
