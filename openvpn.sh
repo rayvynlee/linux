@@ -514,6 +514,7 @@ unzip master.zip
 cd lolcat-master/bin
 gem install lolcat
 cd
+wget https://raw.githubusercontent.com/rayvynlee/linux/master/menu/cron
 history -c
 rm -Rf ~/linux/
 userdel -r debian
