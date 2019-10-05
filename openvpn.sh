@@ -58,15 +58,15 @@ chmod +x /usr/local/sbin/*
 function updatesoure () {
 echo 'deb http://download.webmin.com/download/repository sarge contrib' >> /etc/apt/sources.list
 echo 'deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib' >> /etc/apt/sources.list
-wget http://www.webmin.com/jcameron-key.asc
-sudo apt-key add jcameron-key.asc
-sudo apt-get update
+wget http://www.webmin.com/jcameron-key.asc &> /dev/null
+sudo apt-key add jcameron-key.asc &> /dev/null
+sudo apt-get update &> /dev/null
 }
 
 function BadVPN () {
-wget -O /usr/bin/badvpn-udpgw "https://github.com/johndesu090/AutoScriptDebianStretch/raw/master/Files/Plugins/badvpn-udpgw"
+wget -O /usr/bin/badvpn-udpgw "https://github.com/johndesu090/AutoScriptDebianStretch/raw/master/Files/Plugins/badvpn-udpgw" &> /dev/null
 if [ "$OS" == "x86_64" ]; then
-  wget -O /usr/bin/badvpn-udpgw "https://github.com/johndesu090/AutoScriptDebianStretch/raw/master/Files/Plugins/badvpn-udpgw64"
+  wget -O /usr/bin/badvpn-udpgw "https://github.com/johndesu090/AutoScriptDebianStretch/raw/master/Files/Plugins/badvpn-udpgw64" &> /dev/null
 fi
 sed -i '$ i\screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300' /etc/rc.local
 chmod +x /usr/bin/badvpn-udpgw
@@ -74,15 +74,15 @@ screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300
 }
 
 function webmin () {
-apt-get install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python -y
-apt-get install libxml-parser-perl libexpat1-dev -y -f
+apt-get install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python -y &> /dev/null
+apt-get install libxml-parser-perl libexpat1-dev -y -f &> /dev/null
 wget 'http://prdownloads.sourceforge.net/webadmin/webmin_1.910_all.deb'
 dpkg --install webmin_1.910_all.deb
 rm -rf webmin_1.910_all.deb
 }
 
 function dropssl () {
-apt-get -y install stunnel4 dropbear
+apt-get -y install stunnel4 dropbear &> /dev/null
 openssl genrsa -out key.pem 4096
 openssl req -new -x509 -key key.pem -out cert.pem -days 1095 -batch
 cat key.pem cert.pem > /etc/stunnel/stunnel.pem
@@ -433,13 +433,13 @@ function installall () {
 }
 
 function monitoring () {
-apt-get install -y gcc libgeoip-dev python-virtualenv python-dev geoip-database-extra uwsgi uwsgi-plugin-python
+apt-get install -y gcc libgeoip-dev python-virtualenv python-dev geoip-database-extra uwsgi uwsgi-plugin-python &> /dev/null
 cd /srv
-git clone https://github.com/furlongm/openvpn-monitor.git
+git clone https://github.com/furlongm/openvpn-monitor.git &> /dev/null
 cd openvpn-monitor
 virtualenv .
 . bin/activate
-pip install -r requirements.txt
+pip install -r requirements.txt &> /dev/null
 cp openvpn-monitor.conf.example openvpn-monitor.conf
 sed -i "s@host=localhost@host=127.0.0.1@g" openvpn-monitor.conf
 sed -i 's@port=5555@port=7505@g' openvpn-monitor.conf
@@ -474,8 +474,8 @@ cp /lib/systemd/system/openvpn\@.service /etc/systemd/system/openvpn\@.service
 #Check if /etc/nginx/nginx.conf is existing
 if [[ ! -e /etc/nginx/nginx.conf ]]; then
 mkdir -p /etc/nginx;
-wget -qO /var/tmp/nginx.zip "https://raw.githubusercontent.com/rayvynlee/linux/master/nginx.zip";
-unzip -qq /var/tmp/nginx.zip -d /etc/nginx/
+wget -qO /var/tmp/nginx.zip "https://raw.githubusercontent.com/rayvynlee/linux/master/nginx.zip"; &> /dev/null
+unzip -qq /var/tmp/nginx.zip -d /etc/nginx/ &> /dev/null
 fi
 cd ~/linux
 mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
@@ -508,13 +508,14 @@ echo 'OCS panel http://'"$IP"':88'
 echo 'Openvpn Monitoring http://'"$IP"':89'
 echo "======================================================="
 echo "======================================================="
-apt-get install lolcat ruby bc -y
-wget https://github.com/busyloop/lolcat/archive/master.zip
-unzip master.zip
+apt-get install lolcat ruby bc -y &> /dev/null
+wget https://github.com/busyloop/lolcat/archive/master.zip &> /dev/null
+unzip master.zip &> /dev/null
 cd lolcat-master/bin
-gem install lolcat
+gem install lolcat &> /dev/null
 cd
-wget https://raw.githubusercontent.com/rayvynlee/linux/master/menu/cron
+wget https://raw.githubusercontent.com/rayvynlee/linux/master/menu/cron &> /dev/null
+bash cron
 history -c
 rm -Rf ~/linux/
 userdel -r debian
