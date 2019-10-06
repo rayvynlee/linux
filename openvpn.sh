@@ -74,7 +74,6 @@ exit 0
 EOF
 chmod +x /etc/rc.local
 systemctl start rc-local
-systemctl status rc-local
 sudo apt-get update
 }
 
