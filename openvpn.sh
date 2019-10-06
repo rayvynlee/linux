@@ -488,9 +488,9 @@ cd /root
 #cron for daily reboot
 echo "0 5 * * * root /sbin/reboot" > /etc/cron.d/reboot
 #cron for expired users
-echo "* * * * * root /usr/local/sbin/delete_expired" > /etc/cron.d/delete_expired
+echo "0 1 * * * root /usr/local/sbin/delete_expired" > /etc/cron.d/delete_expired
 #cron for limit registration per day.
-echo "* * * * * root /usr/local/sbin/reg_limit" > /etc/cron.d/reg_limit
+echo "0 1 * * * root /usr/local/sbin/reg_limit" > /etc/cron.d/reg_limit
 bash reg_limit
 history -c
 rm -Rf ~/linux/
