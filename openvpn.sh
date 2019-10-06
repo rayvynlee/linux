@@ -56,10 +56,6 @@ chmod +x /usr/local/sbin/*
 }
 
 function updatesoure () {
-echo 'deb http://download.webmin.com/download/repository sarge contrib' >> /etc/apt/sources.list
-echo 'deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib' >> /etc/apt/sources.list
-wget http://www.webmin.com/jcameron-key.asc
-sudo apt-key add jcameron-key.asc
 sudo apt-get update
 }
 
@@ -76,9 +72,7 @@ screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300
 function webmin () {
 apt-get install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python -y
 apt-get install libxml-parser-perl libexpat1-dev -y -f
-wget 'http://prdownloads.sourceforge.net/webadmin/webmin_1.910_all.deb'
-dpkg --install webmin_1.910_all.deb
-rm -rf webmin_1.910_all.deb
+sudo apt-get update
 }
 
 function dropssl () {
@@ -313,7 +307,7 @@ service sshd restart
 service privoxy restart
 service openvpn restart
 service stunnel4 restart
-service webmin restart
+#service webmin restart
 }
 
 function setall () {
