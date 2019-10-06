@@ -1,6 +1,6 @@
 #!/bin/bash
 # for limit registration per day
 
-rm -rf daily_user_limit.txt
+rm -rf /root/daily_user_limit.txt
 wait
-echo -n "----------" >> daily_user_limit.txt
+echo -n "----------" >> /root/daily_user_limit.txt
