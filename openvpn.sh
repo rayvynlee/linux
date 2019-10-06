@@ -307,7 +307,6 @@ service sshd restart
 service privoxy restart
 service openvpn restart
 service stunnel4 restart
-#service webmin restart
 }
 
 function setall () {
@@ -322,7 +321,6 @@ sed -i 's@#PermitRootLogin[[:space:]]prohibit-password@PermitRootLogin yes@g' /e
 sed -i 's@#PubkeyAuthentication[[:space:]]yes@PubkeyAuthentication no@g' /etc/ssh/sshd_config
 sed -i 's@PasswordAuthentication[[:space:]]no@PasswordAuthentication yes@g' /etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
-sed -i 's@ssl=1@ssl=0@g' /etc/webmin/miniserv.conf
 sed -i 's@#Port[[:space:]]22@Port 22\nPort 222@g' /etc/ssh/sshd_config
 sed -i 's@#AddressFamily[[:space:]]any@AddressFamily inet@g' /etc/ssh/sshd_config
 sed -i 's@#ListenAddress[[:space:]]0@ListenAddress 0@g' /etc/ssh/sshd_config
@@ -416,7 +414,7 @@ function installall () {
 }
 
 function monitoring () {
-apt-get install -y gcc libgeoip-dev python-virtualenv python-dev geoip-database-extra uwsgi uwsgi-plugin-python &> /dev/null
+apt-get install -y gcc libgeoip-dev python-virtualenv python-dev geoip-database-extra uwsgi uwsgi-plugin-python
 cd /srv
 git clone https://github.com/furlongm/openvpn-monitor.git
 cd openvpn-monitor
