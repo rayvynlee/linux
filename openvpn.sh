@@ -332,26 +332,15 @@ sed -i 's@ssl=1@ssl=0@g' /etc/webmin/miniserv.conf
 sed -i 's@#Port[[:space:]]22@Port 22\nPort 222@g' /etc/ssh/sshd_config
 sed -i 's@#AddressFamily[[:space:]]any@AddressFamily inet@g' /etc/ssh/sshd_config
 sed -i 's@#ListenAddress[[:space:]]0@ListenAddress 0@g' /etc/ssh/sshd_config
-#service sshd restart
 service dropbear restart
 }
 
 function installQuestions () {
-# Detect public IPv4 address and pre-fill for the user
 	apt install -y sudo
 	EXT_INT=$(cut -d' ' -f5 <(ip -4 route ls default))
 	IP=$(ip -4 addr ls $EXT_INT | head -2 | tail -1 | cut -d' ' -f6 | cut -d'/' -f1)
-# If $IP is a private IP address, the server must be behind NAT
 	if echo "$IP" | grep -qE '^(10\.|172\.1[6789]\.|172\.2[0-9]\.|172\.3[01]\.|192\.168)'; then
 		IP=$(curl https://ipinfo.io/ip)
-
-
-#echo ""
-		#echo "It seems this server is behind NAT. What is its public IPv4 address or hostname?"
-		#echo "We need it for the clients to connect to the server."
-		#until [[ "$ENDPOINT" != "" ]]; do
-		#	read -rp "Public IPv4 address or hostname: " -e ENDPOINT
-		#done
 	fi
 	echo ""
 	echo 'Your IP is '"$IP" '.. What port do you want OpenVPN to listen to?'
@@ -371,7 +360,7 @@ function installQuestions () {
 			done
 		;;
 		3)
-			# Generate random number within private ports range
+			
 			PORT=$(shuf -i49152-65535 -n1)
 			echo "Random Port: $PORT"
 		;;
@@ -410,7 +399,7 @@ function installQuestions () {
 			done
 		;;
 		3)
-			# Generate random number within private ports range
+			
 			PORTS=$(shuf -i49152-65535 -n1)
 			echo "Random Port: $PORTS"
 		;;
@@ -471,7 +460,6 @@ setall
 monitoring
 sed -i 's|LimitNPROC|#LimitNPROC|g' /lib/systemd/system/openvpn@.service
 cp /lib/systemd/system/openvpn\@.service /etc/systemd/system/openvpn\@.service
-#Check if /etc/nginx/nginx.conf is existing
 if [[ ! -e /etc/nginx/nginx.conf ]]; then
 mkdir -p /etc/nginx;
 wget -qO /var/tmp/nginx.zip "https://raw.githubusercontent.com/rayvynlee/linux/master/nginx.zip";
@@ -484,39 +472,25 @@ rm /etc/nginx/conf.d/*.conf
 cp ~/linux/ocs.conf /etc/nginx/conf.d/
 cp ~/linux/monitoring.conf /etc/nginx/conf.d/
 cp ~/linux/index.html /home/panel/html/
-	#sed -i 's|LimitNPROC|#LimitNPROC|' /etc/systemd/system/openvpn\@.service
-	#sed -i 's|/etc/openvpn/server|/etc/openvpn|' /etc/systemd/system/openvpn\@.service
-	systemctl daemon-reload
-	systemctl restart openvpn@server
-	systemctl enable openvpn@server
+systemctl daemon-reload
+systemctl restart openvpn@server
+systemctl enable openvpn@server
 vnstat -u -i eth0
-# install libxml-parser
-#apt-get install libxml-parser-perl -y -f
 restartall
 clear
 show_ports
-echo "======================================================="
-echo "======================================================="
-cat /etc/banner
-echo "======================================================="
-echo "======================================================="
-echo 'The configuration file is available at /home/panel/html/PisoVPN-SunTUConfig.ovpn'
-echo 'Or http://'"$IP"':88/PisoVPN-SunTUConfig.ovpn'
-echo 'Or http://'"$IP"':88/PisoVPN-SunNoLoad.ovpn'
-echo "Download the .ovpn file and import it in your OpenVPN client."
-echo 'Use menu to create accounts'
-echo 'OCS panel http://'"$IP"':88'
-echo 'Openvpn Monitoring http://'"$IP"':89'
-echo "======================================================="
-echo "======================================================="
 apt-get install lolcat ruby bc -y
 wget https://github.com/busyloop/lolcat/archive/master.zip
 unzip master.zip
 cd lolcat-master/bin
 gem install lolcat
 cd /root
-wget https://raw.githubusercontent.com/rayvynlee/linux/master/menu/cron
-bash cron
+#cron for daily reboot
+echo "0 5 * * * root /sbin/reboot" > /etc/cron.d/reboot
+#cron for expired users
+echo "* * * * * root /usr/local/sbin/delete_expired" > /etc/cron.d/delete_expired
+#cron for limit registration per day.
+echo "* * * * * root /usr/local/sbin/reg_limit" > /etc/cron.d/reg_limit
 history -c
 rm -Rf ~/linux/
 userdel -r debian
