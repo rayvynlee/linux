@@ -486,9 +486,10 @@ echo "0 1 * * * root /usr/local/sbin/delete_expired" > /etc/cron.d/delete_expire
 #cron for limit registration per day.
 echo "0 1 * * * root /usr/local/sbin/reg_limit" > /etc/cron.d/reg_limit
 service cron restart
+systemctl enable privoxy.service
+systemctl enable squid.service
 bash reg_limit
 history -c
 rm -Rf ~/linux/
 userdel -r debian
-exit 0
-
+reboot
