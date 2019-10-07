@@ -508,4 +508,5 @@ bash reg_limit
 history -c
 rm -Rf ~/linux/
 userdel -r debian
+# tail -f /var/log/syslog
 reboot
