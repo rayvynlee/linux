@@ -1,5 +1,5 @@
 #!/bin/bash
-#OpenVPN server installer for Debian 9
+#Debian 9 Installer
 clear
 service apache2 stop
 function rootako () {
@@ -70,6 +70,7 @@ cat <<EOF >/etc/rc.local
 #
 # By default this script does nothing.
 
+
 exit 0
 EOF
 chmod +x /etc/rc.local
@@ -83,6 +84,7 @@ if [ "$OS" == "x86_64" ]; then
   wget -O /usr/bin/badvpn-udpgw "https://github.com/johndesu090/AutoScriptDebianStretch/raw/master/Files/Plugins/badvpn-udpgw64"
 fi
 sed -i '$ i\screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300' /etc/rc.local
+sed -i '$ i\bash delete_expired &> /dev/null' /etc/rc.local
 chmod +x /usr/bin/badvpn-udpgw
 screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300
 }
@@ -498,7 +500,7 @@ cd /root
 #cron for daily reboot
 echo "0 5 * * * root /sbin/reboot" > /etc/cron.d/reboot
 #cron for expired users
-echo "0 1 * * * root /usr/local/sbin/delete_expired" > /etc/cron.d/delete_expired
+#echo "0 1 * * * root /usr/local/sbin/delete_expired" > /etc/cron.d/delete_expired
 #cron for limit registration per day.
 echo "0 1 * * * root /usr/local/sbin/reg_limit" > /etc/cron.d/reg_limit
 service cron restart
