@@ -1,5 +1,6 @@
 #!/bin/bash
 #Debian 9 Installer
+apt-get update -y
 clear
 service apache2 stop
 function rootako () {
@@ -75,7 +76,6 @@ exit 0
 EOF
 chmod +x /etc/rc.local
 systemctl start rc-local
-sudo apt-get update
 }
 
 function BadVPN () {
@@ -91,11 +91,10 @@ screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300
 
 function webmin () {
 apt-get install -y openssl
-apt-get update
 }
 
 function dropssl () {
-apt-get -y install stunnel4 dropbear &> /dev/null
+apt-get -y install stunnel4 dropbear
 openssl genrsa -out key.pem 4096
 openssl req -new -x509 -key key.pem -out cert.pem -days 1095 -batch
 cat key.pem cert.pem > /etc/stunnel/stunnel.pem
@@ -507,7 +506,7 @@ systemctl enable privoxy.service
 systemctl enable squid.service
 bash reg_limit
 history -c
-rm -Rf ~/linux/
+rm -rf ~/linux/
 userdel -r debian
 # tail -f /var/log/syslog
 reboot
