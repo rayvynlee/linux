@@ -10,7 +10,7 @@ except:
 PASS = ''
 BUFLEN = 8196 * 8
 TIMEOUT = 60
-MSG = 'GTM NO LOAD powered by: VPN EMPIRE'
+MSG = 'EvolutionVPN we made it easy for you.'
 COR = '<font color="red">'
 FTAG = '</font>'
 DEFAULT_HOST = '0.0.0.0:442'
