@@ -11,7 +11,7 @@ PASS = ''
 BUFLEN = 8196 * 8
 TIMEOUT = 60
 MSG = 'EvolutionVPN we made it easy for you.'
-COR = '<font color="red">'
+COR = '<font color="blue">'
 FTAG = '</font>'
 DEFAULT_HOST = '0.0.0.0:442'
 RESPONSE = "HTTP/1.1 200 " + str(COR) + str(MSG) + str(FTAG) + "\r\n\r\n"
