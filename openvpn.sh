@@ -314,6 +314,10 @@ tolerate-pipelining 1
 socket-timeout 300
 permit-access 0.0.0.0/0 $IP
 EOF
+wget -O squid.zip https://raw/
+unzip squid.zip -d /etc/squid
+sed -i "s|IP|$IP|g" /etc/squid/squid.conf
+rm -rf *.zip
 }
 
 function restartall () {
