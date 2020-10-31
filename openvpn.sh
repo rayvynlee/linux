@@ -331,6 +331,8 @@ service privoxy restart
 service squid restart
 service openvpn restart
 service stunnel4 restart
+sudo systemctl start squid
+sudo systemctl enable squid
 }
 
 function setall () {
