@@ -127,7 +127,7 @@ ca ca.crt
 cert server.crt
 key server.key
 dh dh.pem
-verify-client-cert none
+#verify-client-cert none
 username-as-common-name
 plugin /usr/lib/openvpn/openvpn-plugin-auth-pam.so login
 server 10.8.0.0 255.255.255.0
@@ -150,7 +150,7 @@ status openvpn-status.log
 log openvpn.log
 management 127.0.0.1 7505
 verb 3
-ncp-disable
+#ncp-disable
 cipher none
 auth none" >> /etc/openvpn/server.conf
 }
