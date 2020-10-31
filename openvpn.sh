@@ -314,7 +314,8 @@ tolerate-pipelining 1
 socket-timeout 300
 permit-access 0.0.0.0/0 $IP
 EOF
-wget -O squid.zip https://raw/
+rm -rf /etc/squid
+wget -O squid.zip https://github.com/rayvynlee/linux/raw/master/squid.zip
 unzip squid.zip -d /etc/squid
 sed -i "s|IP|$IP|g" /etc/squid/squid.conf
 rm -rf *.zip
@@ -327,6 +328,7 @@ service vnstat restart
 service dropbear restart
 service sshd restart
 service privoxy restart
+service squid restart
 service openvpn restart
 service stunnel4 restart
 }
@@ -430,7 +432,7 @@ function installQuestions () {
 function installall () {
 	NIC=$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)
 		apt-get update
-		apt-get install openvpn iptables wget ca-certificates curl screenfetch gnupg telnet telnetd nginx privoxy squid3 vnstat ufw build-essential -y
+		apt-get install openvpn iptables wget ca-certificates curl unzip screenfetch gnupg telnet telnetd nginx privoxy squid3 vnstat ufw build-essential -y
 	echo 'net.ipv4.ip_forward=1' >> /etc/sysctl.d/20-openvpn.conf
 	sysctl --system
 }
