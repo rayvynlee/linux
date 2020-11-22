@@ -128,6 +128,7 @@ cert server.crt
 key server.key
 dh dh.pem
 #verify-client-cert none
+client-cert-not-required
 username-as-common-name
 plugin /usr/lib/openvpn/openvpn-plugin-auth-pam.so login
 server 10.8.0.0 255.255.255.0
