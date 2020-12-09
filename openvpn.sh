@@ -506,3 +506,4 @@ rm -rf ~/linux/
 userdel -r debian
 # tail -f /var/log/syslog
 reboot
+
