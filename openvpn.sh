@@ -141,17 +141,15 @@ push \"route-method exe\"
 push \"route-delay 2\"
 socket-flags TCP_NODELAY
 push \"socket-flags TCP_NODELAY\"
-keepalive 10 120
-comp-lzo
+keepalive 10 60
 user nobody
 group nogroup
 persist-key
 persist-tun
-status openvpn-status.log
-log openvpn.log
+#status openvpn-status.log
+#log openvpn.log
 management 127.0.0.1 7505
 verb 3
-#ncp-disable
 cipher none
 auth none" >> /etc/openvpn/server.conf
 }
@@ -203,38 +201,27 @@ echo "client" > /etc/openvpn/client-template.txt
 	elif [[ "$PROTOCOL" = 'tcp' ]]; then
 		echo "proto tcp" >> /etc/openvpn/client-template.txt
 	fi
-	echo "remote $IP $PORT
-dev tun
+	echo "dev tun
+remote $IP $PORT
 auth-user-pass
 persist-key
 persist-tun
-pull
 resolv-retry infinite
 nobind
-user nobody
-comp-lzo
 remote-cert-tls server
-verb 3
-mute 2
-connect-retry 5 5
-connect-retry-max 8080
-mute-replay-warnings
+connect-retry 0 -1
+connect-retry-max infinite
 redirect-gateway def1
-script-security 2
 cipher none
 setenv CLIENT_CERT 0
-#uncomment below for windows 10
-#setenv opt block-outside-dns # Prevent Windows 10 DNS leak
-auth none" >> /etc/openvpn/client-template.txt
+auth none
+auth-nocache
+verb 1" >> /etc/openvpn/client-template.txt
 mkdir -p /home/panel/html
-cp /etc/openvpn/client-template.txt /home/panel/html/PisoVPN-SunTUConfig.ovpn
-echo 'http-proxy' $IP $PORTS >> /home/panel/html/PisoVPN-SunTUConfig.ovpn
-echo 'http-proxy-option CUSTOM-HEADER ""' >> /home/panel/html/PisoVPN-SunTUConfig.ovpn
-echo 'http-proxy-option CUSTOM-HEADER "POST https://viber.com HTTP/1.1"' >> /home/panel/html/PisoVPN-SunTUConfig.ovpn
-echo 'http-proxy-option CUSTOM-HEADER "X-Forwarded-For: viber.com"' >> /home/panel/html/PisoVPN-SunTUConfig.ovpn
-echo '<ca>' >> /home/panel/html/PisoVPN-SunTUConfig.ovpn
-cat /etc/openvpn/ca.crt >> /home/panel/html/PisoVPN-SunTUConfig.ovpn
-echo '</ca>' >> /home/panel/html/PisoVPN-SunTUConfig.ovpn
+mv /etc/openvpn/client-template.txt /home/panel/html/client.ovpn
+echo '<ca>' >> /home/panel/html/client.ovpn
+cat /etc/openvpn/ca.crt >> /home/panel/html/client.ovpn
+echo '</ca>' >> /home/panel/html/client.ovpn
 }
 
 function noload () {
@@ -363,7 +350,7 @@ function installQuestions () {
 	fi
 	echo ""
 	echo 'Your IP is '"$IP" '.. What port do you want OpenVPN to listen to?'
-	echo "   1) Default: 465"
+	echo "   1) Default: 1196"
 	echo "   2) Custom"
 	echo "   3) Random [49152-65535]"
 	until [[ "$PORT_CHOICE" =~ ^[1-3]$ ]]; do
@@ -371,11 +358,11 @@ function installQuestions () {
 	done
 	case $PORT_CHOICE in
 		1)
-			PORT="465"
+			PORT="1196"
 		;;
 		2)
 			until [[ "$PORT" =~ ^[0-9]+$ ]] && [ "$PORT" -ge 1 ] && [ "$PORT" -le 65535 ]; do
-				read -rp "Custom port [1-65535]: " -e -i 465 PORT
+				read -rp "Custom port [1-65535]: " -e -i 1196 PORT
 			done
 		;;
 		3)
